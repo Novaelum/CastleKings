@@ -4,6 +4,12 @@ using InControl;
 
 public class GameMaster : MonoBehaviour {
 
+    enum Teams
+    {
+        BLUE,
+        RED
+    }
+
     public Player m_P1;
    // public Player p2;
 
@@ -11,14 +17,7 @@ public class GameMaster : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        foreach (Tower tw in GameObject.FindObjectsOfType(typeof(Tower)))
-        {
-            m_actorList.Add(tw);
-        }
-        foreach (Player pl in GameObject.FindObjectsOfType(typeof(Player)))
-        {
-           // m_actorList.Add(pl);
-        }
+        
 	}
 	
 	// Update is called once per frame
@@ -82,7 +81,27 @@ public class GameMaster : MonoBehaviour {
         }
 
         // ========================
-        // Action Button (X) : Attacking
+        // Action Button 1 (A) : Attacking
+        // ------------------------
+        if (InputManager.Devices[0].Action1.WasPressed)
+        {
+            if (InputManager.Devices[0].LeftStickX.IsPressed || InputManager.Devices[0].LeftStickY.IsPressed)
+            {
+                m_P1.Dash(InputManager.Devices[0].LeftStickX.Value, InputManager.Devices[0].LeftStickY.Value);
+            }
+            else if (InputManager.Devices[0].DPad.Up.IsPressed || InputManager.Devices[0].DPad.Right.IsPressed || InputManager.Devices[0].DPad.Down.IsPressed || InputManager.Devices[0].DPad.Left.IsPressed)
+            {
+                m_P1.Dash(InputManager.Devices[0].DPad.X, InputManager.Devices[0].DPad.Y);
+            }
+            else
+            {
+                m_P1.Dash(0, 0);
+            }
+           
+        }
+
+        // ========================
+        // Action Button 3 (X) : Attacking
         // ------------------------
         if (InputManager.Devices[0].Action3.WasPressed)
         {

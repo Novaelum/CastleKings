@@ -15,7 +15,7 @@ public class SpawnPoint : MonoBehaviour {
         if (objHit.gameObject.tag == "Player")
         {
             // Makes sure if the player is it's owner and if he carry the princess
-            if ((m_Owner.Equals(objHit.gameObject.GetComponent<Player>())) && objHit.gameObject.GetComponent<Player>().m_carryPrincess) {
+            if ((m_Owner.Equals(objHit.gameObject.GetComponent<Player>())) && objHit.gameObject.GetComponent<Player>().IsCarryingPrincess()) {
                 objHit.gameObject.SendMessage("Score");
             }
             else
